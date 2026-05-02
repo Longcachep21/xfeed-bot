@@ -84,7 +84,7 @@ def fetch_new_posts(username: str, seen_ids: set, limit: int = None) -> List[Dic
         pub_date = _parse_date(entry)
 
         # Bỏ qua bài đăng TRƯỚC khi bot khởi động
-        if pub_date and pub_date < config.BOT_START_DATE:
+        if pub_date and config.BOT_START_DATE and pub_date < config.BOT_START_DATE:
             continue
 
         # Lấy nội dung
