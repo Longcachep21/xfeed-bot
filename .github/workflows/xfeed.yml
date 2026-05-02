@@ -1,0 +1,49 @@
+name: XFeed Bot – Auto Check
+
+on:
+  schedule:
+    # Chạy mỗi 30 phút
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # Cho phép chạy thủ công
+
+jobs:
+  check-feeds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Restore seen_posts.json từ cache để không gửi lại bài cũ
+      - name: Restore seen posts cache
+        uses: actions/cache@v3
+        with:
+          path: data/seen_posts.json
+          key: seen-posts-${{ github.run_id }}
+          restore-keys: |
+            seen-posts-
+
+      # Restore accounts.json từ cache
+      - name: Restore accounts cache
+        uses: actions/cache@v3
+        with:
+          path: data/accounts.json
+          key: accounts-${{ github.run_id }}
+          restore-keys: |
+            accounts-
+
+      - name: Run XFeed Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # nitter.net là server ổn định nhất hiện tại
+          NITTER_HOST: ${{ secrets.NITTER_HOST || 'https://nitter.net' }}
+        run: python run_once.py
