@@ -289,7 +289,7 @@ async def cmd_status(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         f"🔍 Check cuối: <b>{last_str}</b>\n"
         f"⏰ Auto-check: mỗi <b>{config.CHECK_INTERVAL}</b> phút\n"
         f"💬 Chat IDs: {ids_str}\n"
-        f"🌐 Nitter: <code>{config.NITTER_HOST}</code>",
+        f"🌐 Nguồn: <code>twikit (X scraper)</code>",
         parse_mode=ParseMode.HTML,
     )
 
