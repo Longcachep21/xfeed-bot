@@ -192,7 +192,7 @@ async def cmd_check(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     )
 
     seen = storage.load_seen()
-    new_posts = fetcher.fetch_all_accounts(accounts, seen)
+    new_posts = await fetcher.fetch_all_accounts(accounts, seen)
 
     last_check_time = datetime.now()
 
@@ -306,7 +306,7 @@ async def auto_check_job(ctx: ContextTypes.DEFAULT_TYPE):
 
     logger.info(f"⏰ Auto-check {len(accounts)} tài khoản...")
     seen = storage.load_seen()
-    new_posts = fetcher.fetch_all_accounts(accounts, seen)
+    new_posts = await fetcher.fetch_all_accounts(accounts, seen)
     last_check_time = datetime.now()
 
     if not new_posts:

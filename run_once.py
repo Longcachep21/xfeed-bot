@@ -1,5 +1,6 @@
 """
 run_once.py – Chạy 1 lần để check bài mới, dùng cho GitHub Actions
+Sử dụng twikit (async) thay cho Nitter RSS
 """
 import asyncio
 import logging
@@ -23,10 +24,10 @@ async def main():
         logger.info("📭 Không có tài khoản nào trong danh sách.")
         return
 
-    logger.info(f"🔍 Kiểm tra {len(accounts)} tài khoản: {accounts}")
+    logger.info(f"🔍 Kiểm tra {len(accounts)} tài khoản...")
 
     seen = storage.load_seen()
-    new_posts = fetcher.fetch_all_accounts(accounts, seen)
+    new_posts = await fetcher.fetch_all_accounts(accounts, seen)
 
     if not new_posts:
         logger.info("✅ Không có bài viết mới.")

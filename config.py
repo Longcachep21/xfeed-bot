@@ -13,20 +13,14 @@ _raw_ids       = os.getenv("TELEGRAM_CHAT_ID", "")
 CHAT_IDS       = [c.strip() for c in _raw_ids.split(",") if c.strip()]
 CHAT_ID        = CHAT_IDS[0] if CHAT_IDS else ""  # Giữ backward compat
 
-# ── Nitter ────────────────────────────────────────────────
-# nitter.net là server hoạt động ổn định nhất hiện tại
-NITTER_HOST    = os.getenv("NITTER_HOST", "https://nitter.net")
-
-# Danh sách Nitter server dự phòng (tự động thử nếu server chính lỗi)
-NITTER_MIRRORS = [
-    "https://nitter.poast.org",
-    "https://nitter.catsarch.com",
-    "https://nitter.lunar.icu",
-    "https://nitter.privacydev.net",
-]
+# ── X (Twitter) Credentials ──────────────────────────────
+# Cần để dùng twikit scraper (Nitter đã chết)
+X_USERNAME     = os.getenv("X_USERNAME", "")
+X_EMAIL        = os.getenv("X_EMAIL", "")
+X_PASSWORD     = os.getenv("X_PASSWORD", "")
 
 # ── Scheduler ─────────────────────────────────────────────
-CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL_MINUTES", "15"))
+CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL_MINUTES", "240"))
 
 # ── Storage ───────────────────────────────────────────────
 DATA_DIR       = os.path.join(os.path.dirname(__file__), "data")

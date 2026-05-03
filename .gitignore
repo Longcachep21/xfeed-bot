@@ -1,6 +1,6 @@
 .env
-data/
+data/cookies.json
+data/seen_posts.json
 __pycache__/
 *.pyc
 *.log
-.DS_Store
